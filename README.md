@@ -63,6 +63,4 @@ Ctrl+C stops the server gracefully: each consumer finishes its in-flight message
 - 9,991 orders saved, 0 duplicates. 10 bad orders (`amount < 0`) went to the DLQ; `/dlq/save` stored all 10.
 - All 5 consumers reconnected after the RabbitMQ restart, and each processed about 1,700 to 2,100 orders.
 - A consumer killed with `kill -9` was restarted by the server within 2 seconds.
-=======
-# rabbitmq
->>>>>>> 8ec64f426b74f312040ba6564b96626768f2b1db
+
