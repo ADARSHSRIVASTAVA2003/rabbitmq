@@ -1,24 +1,11 @@
-<<<<<<< HEAD
-# RabbitMQ orders: Node server (Express) + Prisma/PostgreSQL, 10,000 orders, 5 in-process consumers
-
-```
-HTTP ──> server.js (Express :3080) ──publish──> orders.main ──> consumer-1..5 (same process, prefetch 10 each) ──Prisma──> Postgres (orders)
-            │ also runs the consumers               │  ▲            │ fail (retries < 3)
-            │                                       │  └── orders.retry (wait 5s) <──┘
-            │                                       │ fail 3 times (nack, no requeue)
-            └── /dlq/save, /dlq/requeue <── orders.dlq <── orders.dlx
-```
-
-## Run
 
 ```bash
-docker compose -p rabit up -d   # RabbitMQ :5680 (UI :15680 guest/guest), Postgres :5440, Adminer :8085
+docker compose -p rabit up -d   # RabbitMQ :5680 (UI :15680 guest/guest), Postgres :5440
 npm install
 npx prisma db push              # create tables from prisma/schema.prisma
 npm start                       # server on http://localhost:3080 + the 5 consumers
 ```
 
-See the database in Adminer at http://localhost:8085: System **PostgreSQL**, Server **postgres**, Username **app**, Password **app**, Database **orders**.
 
 Settings are in `.env` (DATABASE_URL, AMQP_URL, PORT). You can also set FAIL_RATE (default 0.02).
 
