@@ -1,0 +1,17 @@
+{
+  "name": "rabit-orders",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "amqplib": "^0.10.4",
+    "express": "^4.22.3"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.3"
+  }
+}

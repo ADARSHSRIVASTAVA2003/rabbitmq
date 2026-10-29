@@ -1,0 +1,20 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports: ["5680:5672", "15680:15672"]   # UI: http://localhost:15680 (guest/guest)
+    volumes: ["rabbit_data:/var/lib/rabbitmq"]   # keeps durable queues + messages after restart
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: orders
+    ports: ["5440:5432"]
+  adminer:
+    image: adminer:4.8.1
+    ports: ["8085:8080"]   # DB UI: http://localhost:8085 (System: PostgreSQL, Server: postgres, app/app, DB: orders)
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    depends_on: [postgres]
+volumes:
+  rabbit_data:
